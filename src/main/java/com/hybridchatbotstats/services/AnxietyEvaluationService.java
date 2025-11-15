@@ -30,12 +30,12 @@ public class AnxietyEvaluationService {
 
     public BaseResponse<?> createAnxietyEvaluation(AnxietyEvaluationRequest anxietyEvaluationRequest) {
         AnxietyEvaluation newAnxietyEvaluation = new AnxietyEvaluation();
-        Result newResult = resultRepository.getById(anxietyEvaluationRequest.getResultId());
-        newResult.setId(anxietyEvaluationRequest.getResultId());
+        Result newResult = resultRepository.findById(anxietyEvaluationRequest.getResultId()).orElse(null);
         newAnxietyEvaluation.setGrade(anxietyEvaluationRequest.getGrade());
-        newAnxietyEvaluation.setCreateDate(LocalDateTime.now());
+        newAnxietyEvaluation.setCreateDate(LocalDateTime.now().toLocalDate().atStartOfDay());
         newAnxietyEvaluation.setResult(newResult);
         newAnxietyEvaluation.setIsActive(1);
+        newAnxietyEvaluation.setUserId(anxietyEvaluationRequest.getUserId());
         anxietyEvaluationRepository.save(newAnxietyEvaluation);
         return  new BaseResponse<>(200, "Ok", Optional.of(newAnxietyEvaluation));
     }

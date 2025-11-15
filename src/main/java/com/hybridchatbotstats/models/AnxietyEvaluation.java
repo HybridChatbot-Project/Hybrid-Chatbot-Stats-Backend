@@ -19,7 +19,7 @@ public class AnxietyEvaluation {
     private Integer grade;
     @Column(name="isactive")
     private Integer isActive;
-    @OneToOne
+    @OneToOne()
     @JoinColumn(name="idresult", referencedColumnName = "id", nullable=false)
     private Result result;
     @Column(name = "userid")

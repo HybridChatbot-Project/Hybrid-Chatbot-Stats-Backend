@@ -28,7 +28,7 @@ public class ConversationService {
         newConversation.setGrade(conversationRequest.getGrade());
         newConversation.setUserId(conversationRequest.getUserId());
         newConversation.setIsClosed(conversationRequest.getIsClosed());
-        newConversation.setCreateDate(LocalDateTime.now());
+        newConversation.setCreateDate(LocalDateTime.now().toLocalDate().atStartOfDay());
         newConversation.setIsActive(1);
         newConversation.setUserComment(conversationRequest.getUserComment());
         conversationRepository.save(newConversation);

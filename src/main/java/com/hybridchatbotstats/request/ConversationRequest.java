@@ -11,5 +11,5 @@ public class ConversationRequest {
     private Integer userId;
     private Integer grade;
     private String userComment;
-    private Integer isClosed;
+    private Boolean isClosed;
 }

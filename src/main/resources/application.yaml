@@ -5,6 +5,14 @@ server:
 spring:
   application:
     name: bc-hybridchatbot-stats
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        register-enabled: true
+        service: bc-hybridchatbot-stats
   datasource:
     url: jdbc:postgresql://localhost:5432/hybridchatbotstats?currentSchema=hybridchatbotstats
     driver-class-name: org.postgresql.Driver

@@ -26,5 +26,5 @@ public class Conversation {
     @Column(name = "usercomment")
     private String userComment;
     @Column(name = "isclosed")
-    private Integer isClosed;
+    private Boolean isClosed;
 }

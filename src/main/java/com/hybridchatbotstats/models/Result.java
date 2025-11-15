@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "results", schema = "hybridchatbotstats")
 public class Result {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String result;
     @Column(name = "isactive")
