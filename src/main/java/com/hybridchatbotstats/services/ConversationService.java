@@ -26,7 +26,7 @@ public class ConversationService {
     public BaseResponse<?> createConversation(Integer userId) {
         Conversation newConversation = new Conversation();
         newConversation.setUserId(userId);
-        newConversation.setCreateDate(LocalDateTime.now().toLocalDate().atStartOfDay());
+        newConversation.setCreateDate(LocalDateTime.now());
         newConversation.setIsActive(1);
         newConversation.setIsClosed(false);
         conversationRepository.save(newConversation);
