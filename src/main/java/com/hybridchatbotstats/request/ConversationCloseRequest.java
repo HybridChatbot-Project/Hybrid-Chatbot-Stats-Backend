@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConversationRequest {
-    private Integer userId;
+public class ConversationCloseRequest {
+    private Integer conversationId;
     private Integer grade;
     private String userComment;
-    private Boolean isClosed;
 }

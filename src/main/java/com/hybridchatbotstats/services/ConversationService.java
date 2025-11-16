@@ -3,7 +3,7 @@ package com.hybridchatbotstats.services;
 import com.hybridchatbotstats.models.Conversation;
 import com.hybridchatbotstats.repository.ConversationRepository;
 import com.hybridchatbotstats.repository.NativeQueryRepository;
-import com.hybridchatbotstats.request.ConversationRequest;
+import com.hybridchatbotstats.request.ConversationCloseRequest;
 import com.hybridchatbotstats.response.AverageStaticsResponse;
 import com.hybridchatbotstats.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +23,31 @@ public class ConversationService {
     @Autowired
     private NativeQueryRepository nativeQueryRepository;
 
-    public BaseResponse<?> createConversation(ConversationRequest conversationRequest) {
+    public BaseResponse<?> createConversation(Integer userId) {
         Conversation newConversation = new Conversation();
-        newConversation.setGrade(conversationRequest.getGrade());
-        newConversation.setUserId(conversationRequest.getUserId());
-        newConversation.setIsClosed(conversationRequest.getIsClosed());
+        newConversation.setUserId(userId);
         newConversation.setCreateDate(LocalDateTime.now().toLocalDate().atStartOfDay());
         newConversation.setIsActive(1);
-        newConversation.setUserComment(conversationRequest.getUserComment());
+        newConversation.setIsClosed(false);
         conversationRepository.save(newConversation);
         return new BaseResponse<>(200, "Ok", Optional.of(newConversation));
+    }
+
+    public BaseResponse<?> closeConversation(ConversationCloseRequest conversationCloseRequest) {
+        Conversation modified = conversationRepository.findById(conversationCloseRequest.getConversationId()).orElse(null);
+        if (modified == null) {
+            throw new RuntimeException("conversation not found");
+        }
+        modified.setIsClosed(true);
+        modified.setUserComment(conversationCloseRequest.getUserComment());
+        modified.setGrade(conversationCloseRequest.getGrade());
+        conversationRepository.save(modified);
+        return new BaseResponse<>(200, "Ok", Optional.of(modified));
+    }
+
+    public BaseResponse<?> deleteConversation(Integer conversationId) {
+        conversationRepository.deleteById(conversationId);
+        return new BaseResponse<>(200, "Ok", Optional.of("Borrado exitoso"));
     }
 
     public BaseResponse<?> listMonthGradeAvgGrade(Integer userId, String date){
