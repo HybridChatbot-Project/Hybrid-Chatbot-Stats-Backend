@@ -1,0 +1,31 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api-hybridchatbot-stats
+spring:
+  application:
+    name: bc-hybridchatbot-stats
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER:localhost:8848}
+        username: nacos
+        password: nacos
+        register-enabled: true
+        service: bc-hybridchatbot-stats
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/hybridchatbotstats?currentSchema=hybridchatbotstats}
+    driver-class-name: org.postgresql.Driver
+    username: ${DATABASE_USERNAME:chatbot}
+    password: ${DATABASE_PASSWORD:root}
+  jpa:
+    properties:
+      hibernate:
+        ejb: interceptor-org
+        format_sql: true
+        globally_quoted_identifiers: true
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
