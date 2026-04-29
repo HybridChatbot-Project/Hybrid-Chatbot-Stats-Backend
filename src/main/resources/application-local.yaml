@@ -11,7 +11,7 @@ spring:
         server-addr: localhost:8848
         username: nacos
         password: nacos
-        register-enabled: true
+        register-enabled: false
         service: bc-hybridchatbot-stats
   datasource:
     url: jdbc:postgresql://localhost:5432/hybridchatbotstats?currentSchema=hybridchatbotstats
@@ -24,7 +24,8 @@ spring:
         ejb: interceptor-org
         format_sql: true
         globally_quoted_identifiers: true
-  logging:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+logging:
     level:
       org:
         hibernate:
